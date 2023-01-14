@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{game.title}}{% endblock title %}
+{% block css_files %}
+        <link rel="stylesheet" href="{% static '/game-detail.css' %}">
+{% endblock css_files %}
+{% block content %}
+<div class="container">
+    <h3 style="float:left;">Published by: <span style="font-weight: bolder;"> {{ game.gameStudio }}</span></h3>
+    <h3 style="float:right;">Uploaded on: {{game.date}}</h3>
+    <p style=" margin-top: 8%;">
+        {{game.content}}
+    </p>
+    <div id="read-later">
+        <form action="{% url "library" %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" value="{{game.id}}" name="game_id">
+            <button class="ok">
+                {% if for_library %}
+                    Remove from library
+                {% else %}
+                    Add to library
+                {% endif %}
+            </button>
+        </form>
+    </div>
+    <br>
+    <br>
+    <img src="{{ game.additionalImage.url}}" style="width: 100%; object-fit:cover; max-height: 30rem;"></img>
+    <br>
+    <h2 style="margin-top: 3rem;">Minimum specs</h2>
+    <ul style="float:left;">
+        <li>OS: {{game.operating}}</li>
+        <li>Processor: {{game.processor}}</li>
+        <li>Memory: {{game.memory}}</li>
+        <li>Graphics: {{game.graphics}}</li>
+        <li>Storage: {{game.storage}}</li>
+        <li>Additional: {{game.additional}}</li>
+    </ul>
+    <a class="download" href="{{game.downloadlink}}" >Download</a>
+    <br>
+    <div class="forma">
+        <form class="form__group field" action="{% url "game-detail" game.slug %}" method="POST" class="forma2">
+            {% csrf_token %}
+            {% for form_field in review_form %}
+                {{form_field.label_tag}}
+                {{form_field}}
+            {% endfor %}
+            <button class="reviewbutton">Post</button>
+            <br>
+            <br>
+            <br>
+        </form>
+    </div>
+    <div>
+        {% for review in reviews %}
+                <li class ="review">
+                    {% if review.like %}
+                    <h2>👍 {{review.user_name}} liked this game!</h2>
+                    {% else %}
+                    <h2>👎 {{review.user_name}} didn't like this game!</h2>
+                    {% endif %}
+                    <p>{{ review.text|linebreaks }}</p>
+                </li>
+        {% endfor %}
+        </div>
+</div>
+
+<header style="background-image: url({{game.backgroundImage.url}});  background-attachment: fixed;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+">
+    <img class="gametitle" src="{{ game.image.url}}" alt="" style=" max-height: 15rem;">
+</header>
+{% endblock content %}

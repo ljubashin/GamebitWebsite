@@ -1,0 +1,7 @@
+<div>
+    <div class="b-game-card">
+      <a href="{% url "game-detail" game.slug %}" class="b-game-card__cover" style="background-image: url({{ game.backgroundImage.url}});">
+        <img src="{{ game.image.url }}" class="title">
+      </a>
+  </div>
+</div>
