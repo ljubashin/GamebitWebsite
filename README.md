@@ -7,7 +7,7 @@ This website was one of my first Django projects, it's a game download website.
 
 ### Demo video
 
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/n29vUcfCXqE/0.jpg)](http://www.youtube.com/watch?v=n29vUcfCXqE)
+[![Youtube video link](http://img.youtube.com/vi/n29vUcfCXqE/0.jpg)](http://www.youtube.com/watch?v=n29vUcfCXqE)
 
 ---
 
